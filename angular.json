@@ -8,6 +8,15 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@lernato/schematics:component": {
+          "prefix": "app"
+        },
+        "@lernato/schematics:dialog": {
+          "prefix": "app"
+        },
+        "@lernato/schematics:table": {
+          "prefix": "app"
         }
       },
       "root": "",

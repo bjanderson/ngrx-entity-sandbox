@@ -1,0 +1,11 @@
+:host {
+  .book-table {
+    table {
+      width: 100%;
+
+      .mat-column-select {
+        overflow: initial;
+      }
+    }
+  }
+}
