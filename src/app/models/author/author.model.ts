@@ -3,13 +3,13 @@ import { getArrayOfNumbers, getNumber, getObject, getString } from '@lernato/com
 export class Author {
 
   bookIds: number[];
-  id: number;
+  pk: number;
   name: string;
 
   constructor(obj?: Partial<Author>) {
     obj = getObject(obj);
     this.bookIds = getArrayOfNumbers(obj.bookIds);
-    this.id = getNumber(obj.id, null);
+    this.pk = getNumber(obj.pk, null);
     this.name = getString(obj.name);
   }
 }

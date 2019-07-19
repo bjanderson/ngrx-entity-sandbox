@@ -1,13 +1,12 @@
-import { AuthorStoreState } from 'src/app/models';
 import { AuthorAction, AuthorActionTypes } from './author.store.actions';
+import { adapter, AuthorStoreState, initialState } from './author.store.entity';
 
-export function authorReducer(state: AuthorStoreState = new AuthorStoreState(), action: AuthorAction): AuthorStoreState {
+export function authorReducer(state: AuthorStoreState = initialState, action: AuthorAction): AuthorStoreState {
 
   switch (action.type) {
 
     case AuthorActionTypes.LOAD_SUCCESS:
-      state.setAuthors(action.payload);
-      return new AuthorStoreState(state);
+      return adapter.addAll(action.payload, state);
 
     default:
       return state;
