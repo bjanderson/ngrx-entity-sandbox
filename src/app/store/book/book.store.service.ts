@@ -2,34 +2,43 @@ import { Injectable } from '@angular/core';
 import { StoreService } from '@lernato/common-angular';
 import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Author, Book } from 'src/app/models';
-import { LoadAction } from './book.store.actions';
-import { BookStoreState, selectors } from './book.store.entity';
+import { Book } from 'src/app/models';
+import { AddAllAction, RemoveOneAction, UpsertOneAction } from './book.store.actions';
+import { adapter, BookStoreState } from './book.store.entity';
 
 @Injectable()
 export class BookStoreService extends StoreService {
   static readonly storeName = 'bookStoreState';
-  bookStoreState = createFeatureSelector<BookStoreState>(BookStoreService.storeName);
-  allSelector = createSelector(this.bookStoreState, selectors.selectAll);
-  entitiesSelector = createSelector(this.bookStoreState, selectors.selectEntities);
-  oneSelector = createSelector(this.entitiesSelector, (entities, props) => entities[props.id]);
-  manySelector = createSelector(this.entitiesSelector, (entities, props) => props.ids.map(id => entities[id]));
+  private selectors = adapter.getSelectors();
+  private bookStoreState = createFeatureSelector<BookStoreState>(BookStoreService.storeName);
+  private allSelector = createSelector(this.bookStoreState, this.selectors.selectAll);
+  private entitiesSelector = createSelector(this.bookStoreState, this.selectors.selectEntities);
+  private oneSelector = createSelector(this.entitiesSelector, (entities, props) => entities[props.id]);
+  private manySelector = createSelector(this.entitiesSelector, (entities, props) => props.ids.map(id => entities[id]));
 
   constructor(public store: Store<BookStoreState>) { super(); }
 
-  getBooks(): Observable<Book[]> {
+  getAll(): Observable<Book[]> {
     return this.store.pipe(select(this.allSelector));
   }
 
-  getBook(pk: number): Observable<Author> {
-    return this.store.pipe(select(this.oneSelector, {id: pk}));
+  getById(id: number): Observable<Book> {
+    return this.store.pipe(select(this.oneSelector, {id}));
   }
 
-  getBooksByAuthor(author: Author): Observable<Book[]> {
-    return this.store.pipe(select(this.manySelector, {ids: author.bookIds}));
+  getAllWithIds(ids: number[]): Observable<Book> {
+    return this.store.pipe(select(this.manySelector, {ids}));
   }
 
-  dispatchLoadAction(): void {
-    this.dispatchAction(new LoadAction());
+  dispatchAddAllAction(books: Book[]): void {
+    this.dispatchAction(new AddAllAction(books));
+  }
+
+  dispatchUpsertOneAction(book: Book): void {
+    this.dispatchAction(new UpsertOneAction(book));
+  }
+
+  dispatchRemoveOneAction(id: number): void {
+    this.dispatchAction(new RemoveOneAction(id));
   }
 }

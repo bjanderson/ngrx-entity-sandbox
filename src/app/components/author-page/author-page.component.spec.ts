@@ -1,8 +1,13 @@
+import { of } from 'rxjs';
 import { AuthorPageComponent } from './author-page.component';
+
+const authorStoreService: any = {
+  getAll: () => of([]),
+};
 
 let component: any;
 function init() {
-  component = new AuthorPageComponent();
+  component = new AuthorPageComponent(authorStoreService);
 }
 
 describe('AuthorPageComponent', () => {

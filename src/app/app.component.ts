@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorStoreService } from './store';
-import { BookStoreService } from './store/book';
+import { AuthorService } from './services';
+import { BookStoreService } from './store';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +11,12 @@ export class AppComponent implements OnInit {
   title = 'ngrx-entity-sandbox';
 
   constructor(
-    private authorStoreService: AuthorStoreService,
+    private authorService: AuthorService,
     private bookStoreService: BookStoreService,
   ) {}
 
   ngOnInit(): void {
-    this.authorStoreService.dispatchLoadAction();
+    this.authorService.loadAll();
     this.bookStoreService.dispatchLoadAction();
   }
 }

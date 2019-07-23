@@ -1,8 +1,13 @@
+import { of } from 'rxjs';
 import { BookPageComponent } from './book-page.component';
+
+const bookStoreService: any = {
+  getBooks: () => of([]),
+};
 
 let component: any;
 function init() {
-  component = new BookPageComponent();
+  component = new BookPageComponent(bookStoreService);
 }
 
 describe('BookPageComponent', () => {

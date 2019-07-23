@@ -1,35 +1,26 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
+const authorService: any = {
+  loadAll: () => undefined,
+};
+
+const bookStoreService: any = {
+  dispatchLoadAction: () => undefined,
+};
+
+let component;
+function init(): void {
+  component = new AppComponent(authorService, bookStoreService);
+}
+
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+  describe('constructor()', () => {
+    beforeEach(() => {
+      init();
+    });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'ngrx-entity-sandbox'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('ngrx-entity-sandbox');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ngrx-entity-sandbox!');
+    it('constructs', () => {
+      expect(component).toBeDefined();
+    });
   });
 });

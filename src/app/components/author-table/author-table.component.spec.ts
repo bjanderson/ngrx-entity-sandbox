@@ -1,8 +1,13 @@
+import { of } from 'rxjs';
 import { AuthorTableComponent } from './author-table.component';
+
+const bookStoreService: any = {
+  getBooksByAuthor: () => of([]),
+};
 
 let component: any;
 function init() {
-  component = new AuthorTableComponent();
+  component = new AuthorTableComponent(bookStoreService);
 }
 
 describe('AuthorTableComponent', () => {

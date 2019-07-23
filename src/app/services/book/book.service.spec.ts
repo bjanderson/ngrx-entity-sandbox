@@ -1,13 +1,13 @@
-import { EMPTY } from 'rxjs';
 import { BookService } from './book.service';
 
-const api: any = {
-  get: () => EMPTY
+const bookStoreService: any = {
+  dispatchAddAllAction: () => undefined,
 };
+
 
 let service: any;
 function init() {
-  service = new BookService(api);
+  service = new BookService(bookStoreService);
 }
 
 describe('BookService', () => {
@@ -30,10 +30,12 @@ describe('BookService', () => {
       expect(typeof service.get).toEqual('function');
     });
 
-    it('calls api.get()', () => {
-      const spy = spyOn(api, 'get').and.callThrough();
-      service.get();
-      expect(spy).toHaveBeenCalled();
+    it('calls bookStoreService.dispatchAddAllAction()', (done) => {
+      const spy = spyOn(bookStoreService, 'dispatchAddAllAction').and.callThrough();
+      service.get().subscribe(result => {
+        expect(spy).toHaveBeenCalled();
+        done();
+      });
     });
   });
 });

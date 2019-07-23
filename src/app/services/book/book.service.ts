@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 import { Book } from 'src/app/models';
+import { BookStoreService } from 'src/app/store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
 
-  constructor() {}
+  constructor(
+    private bookStoreService: BookStoreService,
+  ) {}
 
   get(): Observable<Book[]> {
     const books = [
@@ -21,6 +25,15 @@ export class BookService {
       new Book({title: 'Book 7', pk: 7, authorId: 3}),
       new Book({title: 'Book 3', pk: 3, authorId: 1}),
     ];
-    return of(books);
+    return of(books)
+      .pipe(
+        take(1),
+        tap((items: Book[]) => {
+          this.bookStoreService.dispatchAddAllAction(items);
+        }));
+  }
+
+  loadAll(): void {
+    this.get().pipe(take(1)).subscribe();
   }
 }

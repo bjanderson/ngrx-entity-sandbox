@@ -85,6 +85,6 @@ export class BookTableComponent implements OnChanges {
   }
 
   getAuthor$(book: Book): Observable<Author> {
-    return this.authorStoreService.getAuthorOfBook(book).pipe(take(1));
+    return this.authorStoreService.getById(book.authorId).pipe(take(1));
   }
 }

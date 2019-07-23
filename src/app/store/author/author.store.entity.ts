@@ -15,7 +15,3 @@ export const adapter: EntityAdapter<Author> = createEntityAdapter<Author>({
   selectId,
   sortComparer,
 });
-
-export const initialState = adapter.getInitialState();
-
-export const selectors = adapter.getSelectors();

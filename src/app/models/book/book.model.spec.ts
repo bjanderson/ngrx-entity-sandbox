@@ -4,7 +4,9 @@ import { Book } from './book.model';
 describe('Book', () => {
   describe('constructor defaults', () => {
     const defaults = {
-      value: defaultString
+      authorId: null,
+      pk: null,
+      title: defaultString,
     };
 
     it('should have the expected fields', () => {
@@ -23,7 +25,9 @@ describe('Book', () => {
   describe('constructor assignments', () => {
     it('should set all values passed into the constructor', () => {
       const test = {
-        value: 'test value'
+        authorId: 1,
+        pk: 2,
+        title: 'test title',
       };
 
       expect(Object.values(test)).toEqual(Object.values(new Book(test)));

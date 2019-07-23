@@ -15,7 +15,3 @@ export const adapter: EntityAdapter<Book> = createEntityAdapter<Book>({
   selectId,
   sortComparer,
 });
-
-export const initialState = adapter.getInitialState();
-
-export const selectors = adapter.getSelectors();

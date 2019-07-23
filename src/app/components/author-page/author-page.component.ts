@@ -9,7 +9,7 @@ import { AuthorStoreService } from 'src/app/store';
 })
 export class AuthorPageComponent {
 
-  authors$ = this.authorStoreService.getAuthors();
+  authors$ = this.authorStoreService.getAll();
 
   constructor(
     private authorStoreService: AuthorStoreService

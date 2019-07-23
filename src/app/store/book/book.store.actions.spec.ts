@@ -1,57 +1,53 @@
-import { BookActionTypes, LoadAction, LoadFailAction, LoadSuccessAction } from './book.store.actions';
+import { Book } from 'src/app/models';
+import { AddAllAction, BookActionTypes, RemoveOneAction, UpsertOneAction } from './book.store.actions';
 
 describe('BookActions', () => {
-  describe('BookActionTypes', () => {
-    it('LOAD', () => {
-      expect(BookActionTypes.LOAD).toEqual('[Book] Load');
+
+  describe('AddAllAction', () => {
+    it('ADD_ALL', () => {
+      expect(BookActionTypes.ADD_ALL).toEqual('[Book] Add All');
     });
 
-    it('LOAD_FAIL', () => {
-      expect(BookActionTypes.LOAD_FAIL).toEqual('[Book] Load Fail');
-    });
-
-    it('LOAD_SUCCESS', () => {
-      expect(BookActionTypes.LOAD_SUCCESS).toEqual('[Book] Load Success');
-    });
-  });
-
-  describe('LoadAction', () => {
     it('sets the correct action.type', () => {
-      const expected: any = BookActionTypes.LOAD;
-      const result: any = new LoadAction().type;
-      expect(result).toEqual(expected);
-    });
-  });
-
-  describe('LoadFailAction', () => {
-    it('sets the correct action.type', () => {
-      const payload: any = 'test-payload';
-      const expected: any = BookActionTypes.LOAD_FAIL;
-      const result: any = new LoadFailAction(payload).type;
-      expect(result).toEqual(expected);
+      const result = new AddAllAction([]).type;
+      expect(result).toEqual(BookActionTypes.ADD_ALL);
     });
 
     it('sets action.payload to the given payload', () => {
-      const payload: any = 'test-payload';
-      const expected: any = payload;
-      const result: any = new LoadFailAction(payload).payload;
-      expect(result).toEqual(expected);
+      const payload = [new Book({pk: 1})];
+      expect(new AddAllAction(payload).payload).toEqual(payload);
     });
   });
 
-  describe('LoadSuccessAction', () => {
+  describe('UpsertOneAction', () => {
+    it('UPSERT_ONE', () => {
+      expect(BookActionTypes.UPSERT_ONE).toEqual('[Book] Upsert One');
+    });
+
     it('sets the correct action.type', () => {
-      const payload: any = 'test-payload';
-      const expected: any = BookActionTypes.LOAD_SUCCESS;
-      const result: any = new LoadSuccessAction(payload).type;
-      expect(result).toEqual(expected);
+      const result = new UpsertOneAction(new Book()).type;
+      expect(result).toEqual(BookActionTypes.UPSERT_ONE);
     });
 
     it('sets action.payload to the given payload', () => {
-      const payload: any = 'test-payload';
-      const expected: any = payload;
-      const result: any = new LoadSuccessAction(payload).payload;
-      expect(result).toEqual(expected);
+      const payload = new Book({pk: 1});
+      expect(new UpsertOneAction(payload).payload).toEqual(payload);
+    });
+  });
+
+  describe('RemoveOneAction', () => {
+    it('REMOVE_ONE', () => {
+      expect(BookActionTypes.REMOVE_ONE).toEqual('[Book] Remove One');
+    });
+
+    it('sets the correct action.type', () => {
+      const result = new RemoveOneAction(1).type;
+      expect(result).toEqual(BookActionTypes.REMOVE_ONE);
+    });
+
+    it('sets action.payload to the given payload', () => {
+      const payload = 1;
+      expect(new RemoveOneAction(payload).payload).toEqual(payload);
     });
   });
 });
