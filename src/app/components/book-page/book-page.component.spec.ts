@@ -2,7 +2,7 @@ import { of } from 'rxjs';
 import { BookPageComponent } from './book-page.component';
 
 const bookStoreService: any = {
-  getBooks: () => of([]),
+  getAll: () => of([]),
 };
 
 let component: any;

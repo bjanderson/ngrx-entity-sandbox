@@ -9,7 +9,7 @@ import { BookStoreService } from 'src/app/store';
 })
 export class BookPageComponent {
 
-  books$ = this.bookStoreService.getBooks();
+  books$ = this.bookStoreService.getAll();
 
   constructor(
     private bookStoreService: BookStoreService,

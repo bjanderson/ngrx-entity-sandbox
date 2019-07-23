@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorService } from './services';
-import { BookStoreService } from './store';
+import { AuthorService, BookService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +11,11 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authorService: AuthorService,
-    private bookStoreService: BookStoreService,
+    private bookService: BookService,
   ) {}
 
   ngOnInit(): void {
     this.authorService.loadAll();
-    this.bookStoreService.dispatchLoadAction();
+    this.bookService.loadAll();
   }
 }

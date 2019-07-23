@@ -4,13 +4,13 @@ const authorService: any = {
   loadAll: () => undefined,
 };
 
-const bookStoreService: any = {
-  dispatchLoadAction: () => undefined,
+const bookService: any = {
+  loadAll: () => undefined,
 };
 
 let component;
 function init(): void {
-  component = new AppComponent(authorService, bookStoreService);
+  component = new AppComponent(authorService, bookService);
 }
 
 describe('AppComponent', () => {

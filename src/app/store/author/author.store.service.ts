@@ -26,7 +26,7 @@ export class AuthorStoreService extends StoreService {
     return this.store.pipe(select(this.oneSelector, {id}));
   }
 
-  getAllWithIds(ids: number[]): Observable<Author> {
+  getAllWithIds(ids: number[]): Observable<Author[]> {
     return this.store.pipe(select(this.manySelector, {ids}));
   }
 
